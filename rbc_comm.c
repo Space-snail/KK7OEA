@@ -78,47 +78,47 @@ void* pihpsdr_cat_interface(void* arg)
 #if DEBUG_PRINT		
 		printf("Received string: %s %d\n", pipe_read_buff, nbytes);
 #endif
-		if (!strcmp(pipe_read_buff, "EARI")) {strcpy(cat_buffer,"ZZAF01;"); bcat_buff = 1;}
-		else if (!strcmp(pipe_read_buff, "EALE")) {strcpy(cat_buffer,"ZZAE01;"); bcat_buff = 1;}
+		if (!strcmp(pipe_read_buff, "EALE")) {strcpy(cat_buffer,"ZZAF01;"); bcat_buff = 1;}
+		else if (!strcmp(pipe_read_buff, "EARI")) {strcpy(cat_buffer,"ZZAE01;"); bcat_buff = 1;}
 
 		/*-------------------- [ AF Gain Control] -----------------------*/
-		else if (!strcmp(pipe_read_buff, "EBLE")) {
+		else if (!strcmp(pipe_read_buff, "EBRI")) {
 			if(Audio_Gain) Audio_Gain--;
 			sprintf(cat_buffer, "ZZAG%03d;",Audio_Gain);
 			bcat_buff = 1;
 		}
-		else if (!strcmp(pipe_read_buff, "EBRI")) {
+		else if (!strcmp(pipe_read_buff, "EBLE")) {
 			if(Audio_Gain < 100) Audio_Gain++;
 			sprintf(cat_buffer, "ZZAG%03d;",Audio_Gain);
 			bcat_buff = 1;
 		}
 
 		/*-------------------- [ AGC Gain Control] -----------------------*/
-		else if (!strcmp(pipe_read_buff, "ECLE")) {
+		else if (!strcmp(pipe_read_buff, "ECRI")) {
 			if(AGC_Gain) AGC_Gain--;
 			sprintf(cat_buffer, "ZZAR%03d;", (AGC_Gain - 20));
 			bcat_buff = 1;
 		}
-		else if (!strcmp(pipe_read_buff, "ECRI")) {
+		else if (!strcmp(pipe_read_buff, "ECLE")) {
 			if(AGC_Gain < 140) AGC_Gain++;
 			sprintf(cat_buffer, "ZZAR%03d;",(AGC_Gain - 20));
 			bcat_buff = 1;
 		}
 
 		/*-------------------- [ RX Gain Control] -----------------------*/
-		else if (!strcmp(pipe_read_buff, "EDLE")) {
+		else if (!strcmp(pipe_read_buff, "EDRI")) {
 			if(RX_Gain) RX_Gain--;
 			sprintf(cat_buffer, "RA%02d;", RX_Gain);
 			bcat_buff = 1;
 		}
-		else if (!strcmp(pipe_read_buff, "EDRI")) {
+		else if (!strcmp(pipe_read_buff, "EDLE")) {
 			if(RX_Gain < 100) RX_Gain++;
 			sprintf(cat_buffer, "RA%02d;", RX_Gain);
 			bcat_buff = 1;
 		}
 		/*----------------------- [ RIT +/- ]----------------------------*/
-		else if (!strcmp(pipe_read_buff, "EERI")) {strcpy(cat_buffer,"ZZRU;"); bcat_buff = 1;}
-		else if (!strcmp(pipe_read_buff, "EELE")) {strcpy(cat_buffer,"ZZRD;"); bcat_buff = 1;}
+		else if (!strcmp(pipe_read_buff, "EELE")) {strcpy(cat_buffer,"ZZRU;"); bcat_buff = 1;}
+		else if (!strcmp(pipe_read_buff, "EERI")) {strcpy(cat_buffer,"ZZRD;"); bcat_buff = 1;}
 
 		/*------------------- [ push switch handler ]---------------------*/
 		else if (pipe_read_buff[0] == 'K') {
